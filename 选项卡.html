@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="renderer" content="webkit">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <!--<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->
+    <!--<script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>-->
+    <!--<![endif]&ndash;&gt;-->
+
+
+
+
+    <title>Document</title>
+
+</head>
+<style>
+    ul,li,body{
+        margin:0;
+        padding:0;
+        list-style: none;
+    }
+    .box{
+        width: 100%;
+        /*height:667px;*/
+        position: relative;
+        overflow: hidden;
+    }
+    .xuan{
+        width: 100%;
+        height: 50px;
+        position: absolute;
+        bottom:0;
+        z-index: 9999;
+        background: #1F81E0;
+    }
+    .xuan>li{
+        width: 33.333333%;
+        float: left;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+
+        font-size: 24px;
+
+
+    }
+
+    .con{
+        width:300%;
+        height:100%;
+        position: absolute;
+        top:0;
+        left:0;
+        transition:all  .5s ;
+    }
+    .con>li{
+        width:33.333333%;
+        height: 100%;
+        float: left;
+
+        font-size: 40px;
+        text-align: center;
+        line-height: 600px;
+        background:pink;
+    }
+    .xuan li.active{
+        background: #4cae4c;
+    }
+</style>
+<body>
+    <div class="box">
+        <ul class="xuan">
+            <li class="active">选项1</li>
+            <li>选项2</li>
+            <li>选项3</li>
+        </ul>
+        <ul class="con">
+            <li>connect1</li>
+            <li>connect2</li>
+            <li>connect3</li>
+        </ul>
+    </div>
+</body>
+</html>
+<script src="js/rem.js"></script>
+<script>
+    var boxs=document.querySelector(".box");
+    boxs.style.height=document.documentElement.clientHeight+"px";
+    var xuanlis=document.querySelectorAll(".xuan>li");
+    var conlis=document.querySelectorAll(".con>li");
+    var cons=document.querySelector(".con");
+
+    for(var i=0;i<xuanlis.length;i++){
+        xuanlis[i].index=i;
+        xuanlis[i].addEventListener("touchstart",function () {
+            cons.style.transform="translate3d("+-33.333333*this.index+"%,0,0)";
+            for(var j=0;j<xuanlis.length;j++){
+                xuanlis[j].classList.remove("active");
+            }
+            xuanlis[this.index].classList.add("active");
+        },false);
+
+    }
+
+
+</script>

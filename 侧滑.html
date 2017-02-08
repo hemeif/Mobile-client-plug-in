@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="renderer" content="webkit">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <!--<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->
+    <!--<script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>-->
+    <!--<![endif]&ndash;&gt;-->
+
+
+
+
+    <title>Document</title>
+
+</head>
+<style>
+    a{
+        -webkit-tap-highlight-color:rgba(0,0,0,0)!important;
+    }
+    li,ul{
+        margin:0;
+        padding:0;
+        list-style: none;
+    }
+    .box{
+        width: 300px;
+        height:500px;
+        border:1px solid #00ADFA;
+        border-radius:20px;
+        position: relative;
+        overflow: hidden;
+    }
+    .box>a{
+        display: block;
+        font-size: 30px;
+        width: 100%;
+        height: 50px;
+
+        line-height: 50px;
+        background:red;
+        position: relative;
+        z-index: 9999;
+
+    }
+    .zhez{
+        width:100%;
+        height: 100%;
+        display: none;
+        position: absolute;
+
+        top:0;
+        left: 0;
+        overflow: hidden;
+        transition:width .5s;
+
+
+    }
+    .che{
+        width:100px;
+        height: 100%;
+        position: absolute;
+        top:0;
+        background: #1F81E0;
+        transform: translate3d(-100%,0,0);
+        transition:transform .5s;
+        z-index: 99;
+        overflow: hidden;
+        padding-top:60px;
+        box-sizing: border-box;
+    }
+    .che li{
+        width: 100px;
+        height: 20px;
+        background: pink;
+        margin-bottom:10px;
+        font-size: 16px;
+        text-align: center;
+
+    }
+</style>
+<body>
+<div class="box">
+    <a href="#">点击</a>
+    <div class="zhez">
+
+    </div>
+    <div class="che">
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
+<script src="js/rem.js"></script>
+<script>
+    var as=document.querySelector("a");
+    var zhez=document.querySelector(".zhez");
+    var che=document.querySelector(".che");
+    as.addEventListener("touchstart",function () {
+        if(zhez.style.display=="block"){
+            zhez.style.display="none";
+            che.style.transform="translate3d(-100%,0,0)";
+        }else{
+            zhez.style.display="block";
+            che.style.transform="translate3d(0,0,0)";
+        }
+
+    },false);
+
+    zhez.addEventListener("touchstart",function () {
+        zhez.style.display="none";
+        che.style.transform="translate3d(-100%,0,0)";
+    },false)
+
+</script>

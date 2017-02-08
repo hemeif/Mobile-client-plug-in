@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="renderer" content="webkit">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <!--<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->
+    <!--<script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>-->
+    <!--<![endif]&ndash;&gt;-->
+
+
+  
+    <title>Document</title>
+
+</head>
+<style>
+    ul,li,body{
+        margin:0;
+        padding:0;
+        list-style: none;
+    }
+    .box{
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+    }
+    .wheel-box{
+       height: 100%;
+
+    }
+    .wheel-box li{
+        float: left;
+        overflow: hidden;
+
+    }
+</style>
+
+<body>
+    <div class="box">
+        <ul class="wheel-box">
+            <li><a href="https://www.baidu.com/"><img src="image/pc6.png" alt=""></a></li>
+            <li><a href="https://www.baidu.com/"><img src="image/pc7.png" alt=""></a></li>
+            <li><a href="https://www.baidu.com/"><img src="image/pc8.png" alt=""></a></li>
+            <li><a href="https://www.baidu.com/"><img src="image/pc10.png" alt=""></a></li>
+            <li><a href="https://www.baidu.com/"><img src="image/pc11.png" alt=""></a></li>
+        </ul>
+    </div>
+    <script>
+        var lis=document.querySelectorAll(".wheel-box li");
+        var wheel=document.querySelector(".wheel-box");
+        var box=document.querySelector(".box");
+        var lisim=document.querySelectorAll(".wheel-box img");
+        console.dir(box)
+        var cw=document.documentElement.clientWidth;
+        wheel.style.width=cw*lis.length+"px";
+//        图片宽度
+        for(var i=0;i<lisim.length;i++){
+            lisim[i].style.width=cw+"px";
+        };
+         var mf=0;
+        var index=0;
+        var stime;
+        var etime;
+//        自动轮播
+        var t=setInterval(time,2000);
+        function time() {
+            index++;
+            if(index==lis.length){
+                index=0;
+            }
+            wheel.style.transition="transform .3s";
+//            没有过渡效果会更加完美
+            wheel.style.transform="translate3d("+(-cw*index)+"px,0,0)"
+        }
+        wheel.addEventListener("touchstart",function (e) {
+            clearInterval(t);
+            var th=e.targetTouches[0];
+            var of=th.clientX;
+            wheel.style.transition="";
+           stime=e.timeStamp;
+            wheel.addEventListener("touchmove",move,false);
+            wheel.addEventListener("touchend",end,false);
+
+            function  move(e) {
+
+                var th=e.targetTouches[0];
+
+                mf=th.clientX;
+                var moin=mf-of-cw*index;
+                console.log(moin)
+                wheel.style.transform="translate3d("+moin+"px,0,0)";
+
+            }
+
+
+            function  end(e) {
+                var ju=Math.abs(mf-of);
+                etime=e.timeStamp;
+                var times=etime-stime;
+                console.log(e)
+                var is=Math.abs(e.changedTouches[0].clientX-of);
+
+                wheel.style.transition="transform .3s";
+
+//                加距离也是为了a标签的跳转
+                if(ju>=cw/2||(times<100&&is>30)){
+
+                    if(mf-of>0){
+                        index--;
+                    }else{
+                        index++;
+                    }
+                    if(index==lis.length){
+                        index=lis.length-1;
+                    }
+                    if(index==-1){
+                        index=0;
+                    }
+                    wheel.style.transform="translate3d("+(-cw*index)+"px,0,0)";
+
+
+
+                }else{
+                    wheel.style.transform="translate3d("+(-cw*index)+"px,0,0)"
+                }
+
+
+                    wheel.removeEventListener("touchend",end);
+                    wheel.removeEventListener("touchmove",move);
+
+                t=setInterval(time,2000);
+
+
+
+
+
+            }
+
+        },false)
+
+
+    </script>
+</body>
+</html>
+
+
